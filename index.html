@@ -346,6 +346,109 @@
                 font-size: 16px;
             }
         }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-color);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button:hover {
+            background-color: var(--bg-color);
+            transform: none;
+            box-shadow: none;
+        }
+
+        .tab-button.active {
+            color: var(--secondary-color);
+            border-bottom-color: var(--secondary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Mini Story Styles */
+        .mini-story-intro {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .ms-instructions {
+            margin-top: 15px;
+        }
+
+        .ms-rule {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .ms-number {
+            font-size: 24px;
+            min-width: 40px;
+        }
+
+        .ms-text {
+            flex: 1;
+        }
+
+        .ms-section {
+            margin: 25px 0;
+            padding: 20px;
+            background: var(--bg-color);
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .ms-statement {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .ms-question {
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin: 10px 0;
+            padding-left: 10px;
+            font-size: 16px;
+        }
+
+        .ms-answer {
+            color: #27ae60;
+            font-weight: 500;
+            margin: 8px 0;
+            padding-left: 20px;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -401,14 +504,21 @@
             <div class="steps-checklist" id="stepsList"></div>
         </div>
 
-        <!-- Story Text -->
+        <!-- Tabs for Main Story and Mini Story -->
         <div class="card">
-            <h3>📖 Nội dung bài học</h3>
-            <div class="controls">
-                <button onclick="toggleText()">👁️ Ẩn/Hiện Text (Bước 1 & 3)</button>
-                <button onclick="highlightVocab()">📝 Highlight từ vựng</button>
+            <div class="tabs">
+                <button class="tab-button active" onclick="switchTab('main')">📖 Main Story</button>
+                <button class="tab-button" onclick="switchTab('mini')">🎯 Mini Story (MS)</button>
             </div>
-            <div class="story-text" id="storyText">
+
+            <!-- Main Story Tab -->
+            <div id="mainTab" class="tab-content active">
+                <h3 style="margin-top: 20px;">📖 Nội dung bài học chính</h3>
+                <div class="controls">
+                    <button onclick="toggleText()">👁️ Ẩn/Hiện Text (Bước 1 & 3)</button>
+                    <button onclick="highlightVocab()">📝 Highlight từ vựng</button>
+                </div>
+                <div class="story-text" id="storyText">
                 <p>I arrive in Guatemala on <span class="vocab">The Day of the Dead<span class="vocab-tooltip">Ngày của người chết (lễ hội)</span></span>, November 1st. I'm <span class="vocab">curious<span class="vocab-tooltip">tò mò, hiếu kỳ</span></span> about this holiday, so I go to the <span class="vocab">cemetery<span class="vocab-tooltip">nghĩa trang</span></span> to see what's happening. What I find is quite interesting.</p>
 
                 <p>The <span class="vocab">atmosphere<span class="vocab-tooltip">bầu không khí</span></span> is like a party. There are people everywhere. Families are sitting around the graves of their dead <span class="vocab">ancestors<span class="vocab-tooltip">tổ tiên</span></span>. They clean the graves and add fresh flowers. I walk through the cemetery and <span class="vocab">admire<span class="vocab-tooltip">ngưỡng mộ, chiêm ngưỡng</span></span> the beauty of all the colorful flowers.</p>
@@ -420,6 +530,231 @@
                 <p>I find that I prefer the Guatemalan <span class="vocab">approach<span class="vocab-tooltip">cách tiếp cận</span></span>. I like the way they remember and celebrate those who have <span class="vocab">passed away<span class="vocab-tooltip">qua đời</span></span>. I like that they <span class="vocab">acknowledge<span class="vocab-tooltip">thừa nhận</span></span> death, instead of denying it the way Americans do. I like that there is life, as well as death, in their cemeteries.</p>
 
                 <p>Guatemalans call it "The Day of the Dead", but it is also a day to appreciate life.</p>
+            </div>
+            </div>
+
+            <!-- Mini Story Tab -->
+            <div id="miniTab" class="tab-content">
+                <div class="mini-story-intro">
+                    <h3>🎯 Cách học Mini Story</h3>
+                    <div class="ms-instructions">
+                        <p><strong>Thầy AJ sẽ làm 3 điều:</strong></p>
+                        <div class="ms-rule">
+                            <div class="ms-number">1️⃣</div>
+                            <div class="ms-text">
+                                <strong>Câu trần thuật:</strong> Khi nghe câu trần thuật (VD: "There is a dog"), hãy nói "Ahhh" hoặc "Ohhh" để thể hiện bạn hiểu đây không phải câu hỏi.
+                            </div>
+                        </div>
+                        <div class="ms-rule">
+                            <div class="ms-number">2️⃣</div>
+                            <div class="ms-text">
+                                <strong>Câu hỏi biết đáp án:</strong> Trả lời thật nhanh! VD: "Is there a dog?" → "Yes, there is a dog"
+                            </div>
+                        </div>
+                        <div class="ms-rule">
+                            <div class="ms-number">3️⃣</div>
+                            <div class="ms-text">
+                                <strong>Câu hỏi không biết:</strong> Đoán đại! Miễn sao trả lời nhanh là được.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <h3>🎧 Audio Mini Story</h3>
+                    <div class="audio-player">
+                        <audio id="miniAudio" controls style="width: 100%; max-width: 600px;">
+                            <source src="https://atm225799-s3user.vcos.cloudstorage.com.vn/eedata/dvd1%2FLever%201%2FBai%2001%20Day%20of%20the%20dead%2FDay%20of%20the%20Dead%20MS.mp3" type="audio/mpeg">
+                            Trình duyệt của bạn không hỗ trợ audio.
+                        </audio>
+                        
+                        <div class="audio-controls">
+                            <div class="speed-control">
+                                <label>Tốc độ:</label>
+                                <button onclick="changeMiniSpeed(0.75)">0.75x</button>
+                                <button onclick="changeMiniSpeed(1)">1x</button>
+                                <button onclick="changeMiniSpeed(1.25)">1.25x</button>
+                                <button onclick="changeMiniSpeed(1.5)">1.5x</button>
+                            </div>
+                        </div>
+
+                        <div class="listen-counter">
+                            🎵 Đã nghe MS: <span id="miniListenCount">0</span> lần
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <div class="controls">
+                        <button onclick="toggleMiniText()">👁️ Ẩn/Hiện Transcript</button>
+                        <button onclick="alert('💡 Mẹo: Hãy thử trả lời câu hỏi trước khi xem transcript!')">💡 Mẹo học MS</button>
+                    </div>
+                    <div class="story-text" id="miniStoryText" style="margin-top: 20px;">
+                        <div class="ms-section">
+                            <p class="ms-statement">📢 <strong>I arrived in Guatemala on the Day of the Dead, November 1st.</strong></p>
+                            <p class="ms-question">❓ Did I arrive in Guatemala?</p>
+                            <p class="ms-answer">✅ Yes. Yes, I arrived in Guatemala.</p>
+                            
+                            <p class="ms-question">❓ Where did I arrive?</p>
+                            <p class="ms-answer">✅ Guatemala. I arrived in Guatemala.</p>
+                        </div>
+
+                        <div class="ms-section">
+                            <p class="ms-statement">📢 <strong>I arrived in Guatemala on the Day of the Dead, November 1st.</strong></p>
+                            <p class="ms-question">❓ Who arrived in Guatemala on the Day of the Dead?</p>
+                            <p class="ms-answer">✅ Me – AJ. I arrived in Guatemala on the Day of the Dead, November 1st.</p>
+                        </div>
+
+                        <div class="ms-section">
+                            <p class="ms-question">❓ Did I arrive in Guatemala on November 3rd?</p>
+                            <p class="ms-answer">✅ No, no. I didn't arrive in Guatemala on November 3rd; I arrived in Guatemala on November 1st.</p>
+                            
+                            <p class="ms-question">❓ What day did I arrive in Guatemala?</p>
+                            <p class="ms-answer">✅ November 1st. I arrived in Guatemala on November 1st.</p>
+                            
+                            <p class="ms-question">❓ Where did I arrive on November 1st?</p>
+                            <p class="ms-answer">✅ Guatemala. I arrived in Guatemala on November 1st.</p>
+                        </div>
+
+                        <div class="ms-section">
+                            <p class="ms-statement">📢 <strong>I was curious about this holiday so I went to the cemetery to see what was happening.</strong></p>
+                            <p class="ms-question">❓ Was I angry about this holiday?</p>
+                            <p class="ms-answer">✅ No, no. I wasn't angry about this holiday.</p>
+                            
+                            <p class="ms-question">❓ Was I sad about this holiday?</p>
+                            <p class="ms-answer">✅ No, no. I wasn't sad about this holiday. I was curious about this holiday.</p>
+                            
+                            <p class="ms-question">❓ Who was curious about this holiday?</p>
+                            <p class="ms-answer">✅ I was – AJ. I was curious about this holiday.</p>
+                        </div>
+
+                        <div class="ms-section">
+                            <p class="ms-question">❓ What was I curious about?</p>
+                            <p class="ms-answer">✅ The holiday. I was curious about the holiday.</p>
+                            
+                            <p class="ms-question">❓ Which holiday was I curious about?</p>
+                            <p class="ms-answer">✅ The Day of the Dead. I was curious about the Day of the Dead.</p>
+                        </div>
+
+                        <div class="ms-section">
+                            <p class="ms-question">❓ Was I curious about the Day of the Dead or was I curious about Christmas?</p>
+                            <p class="ms-answer">✅ The Day of the Dead. I was curious about the Day of the Dead.</p>
+                        </div>
+
+                        <div class="ms-section">
+                            <p class="ms-statement">📢 <strong>I went to the cemetery to see what was happening.</strong></p>
+                            <p class="ms-question">❓ Where did I go?</p>
+                            <p class="ms-answer">✅ To the cemetery. I went to the cemetery.</p>
+                            
+                            <p class="ms-question">❓ Did I go to the cemetery or did I go to the airport?</p>
+                            <p class="ms-answer">✅ I went to the cemetery.</p>
+                            
+                            <p class="ms-question">❓ Who went to the cemetery?</p>
+                            <p class="ms-answer">✅ Me – AJ. I went to the cemetery.</p>
+                        </div>
+
+                        <div class="ms-section">
+                            <p class="ms-question">❓ Why did I go to the cemetery?</p>
+                            <p class="ms-answer">✅ To see what was happening. I went to the cemetery to see what was happening.</p>
+                        </div>
+
+                        <div class="ms-section">
+                            <p class="ms-statement">📢 <strong>What I found was quite interesting.</strong></p>
+                            <p class="ms-question">❓ Was it boring?</p>
+                            <p class="ms-answer">✅ No, no. It wasn't boring.</p>
+                            
+                            <p class="ms-question">❓ Was it interesting?</p>
+                            <p class="ms-answer">✅ Yes, yes. It was interesting.</p>
+                        </div>
+
+                        <div class="ms-section">
+                            <p class="ms-statement">📢 <strong>The atmosphere in the cemetery was like a party.</strong></p>
+                            <p class="ms-question">❓ Was the atmosphere very sad?</p>
+                            <p class="ms-answer">✅ No, no. The atmosphere was not sad. The atmosphere was like a party.</p>
+                            
+                            <p class="ms-question">❓ Was the atmosphere sad or happy?</p>
+                            <p class="ms-answer">✅ Happy. The atmosphere was happy. The atmosphere was like a party.</p>
+                        </div>
+
+                        <div class="ms-section">
+                            <p class="ms-statement">📢 <strong>Families were sitting around the graves of their dead ancestors.</strong></p>
+                            <p class="ms-question">❓ Where were the families sitting?</p>
+                            <p class="ms-answer">✅ Around the graves. They were sitting around the graves.</p>
+                            
+                            <p class="ms-question">❓ Who was sitting around the graves?</p>
+                            <p class="ms-answer">✅ The families. The families were sitting around the graves.</p>
+                        </div>
+
+                        <div class="ms-section">
+                            <p class="ms-statement">📢 <strong>They cleaned the graves and added fresh flowers.</strong></p>
+                            <p class="ms-question">❓ Who cleaned the graves?</p>
+                            <p class="ms-answer">✅ The families. The families cleaned the graves.</p>
+                            
+                            <p class="ms-question">❓ What did they add?</p>
+                            <p class="ms-answer">✅ Fresh flowers. They added fresh flowers.</p>
+                        </div>
+
+                        <div class="ms-section">
+                            <p class="ms-statement">📢 <strong>I walked through the cemetery and admired the beauty of all the colorful flowers.</strong></p>
+                            <p class="ms-question">❓ Where did I walk?</p>
+                            <p class="ms-answer">✅ Through the cemetery. I walked through the cemetery.</p>
+                            
+                            <p class="ms-question">❓ What did I admire?</p>
+                            <p class="ms-answer">✅ The flowers. I admired the beauty of all the colorful flowers.</p>
+                        </div>
+
+                        <div class="ms-section">
+                            <p class="ms-statement">📢 <strong>There was color in the sky because many kids were flying kites.</strong></p>
+                            <p class="ms-question">❓ Where was the color?</p>
+                            <p class="ms-answer">✅ In the sky. The color was in the sky.</p>
+                            
+                            <p class="ms-question">❓ Why was there color in the sky?</p>
+                            <p class="ms-answer">✅ Because kids were flying kites.</p>
+                            
+                            <p class="ms-question">❓ Who were flying kites?</p>
+                            <p class="ms-answer">✅ Kids. Kids were flying kites.</p>
+                        </div>
+
+                        <div class="ms-section">
+                            <p class="ms-statement">📢 <strong>Some families were having a picnic next to the graves.</strong></p>
+                            <p class="ms-question">❓ Did they eat?</p>
+                            <p class="ms-answer">✅ Yes. They ate.</p>
+                            
+                            <p class="ms-question">❓ What did they eat?</p>
+                            <p class="ms-answer">✅ Guatemalan food. They ate Guatemalan food.</p>
+                        </div>
+
+                        <div class="ms-section">
+                            <p class="ms-statement">📢 <strong>In the United States, cemeteries are always somber.</strong></p>
+                            <p class="ms-question">❓ Are cemeteries happy in the United States?</p>
+                            <p class="ms-answer">✅ No, no, no. Never. Cemeteries aren't happy in the United States.</p>
+                            
+                            <p class="ms-question">❓ Are cemeteries serious in the United States?</p>
+                            <p class="ms-answer">✅ Yes. Yes, they are. Cemeteries are always somber and serious.</p>
+                        </div>
+
+                        <div class="ms-section">
+                            <p class="ms-statement">📢 <strong>I found that I preferred the Guatemalan approach.</strong></p>
+                            <p class="ms-question">❓ Did I prefer the American approach or the Guatemalan approach?</p>
+                            <p class="ms-answer">✅ The Guatemalan approach. I preferred the Guatemalan approach.</p>
+                        </div>
+
+                        <div class="ms-section">
+                            <p class="ms-statement">📢 <strong>I liked the way they remembered and celebrated those who had passed away.</strong></p>
+                            <p class="ms-question">❓ Did they celebrate those who were alive?</p>
+                            <p class="ms-answer">✅ No, no. They celebrated those who had passed away.</p>
+                        </div>
+
+                        <div class="ms-section">
+                            <p class="ms-statement">📢 <strong>Guatemalans call it the Day of the Dead but it is also a day to appreciate life.</strong></p>
+                        </div>
+
+                        <div style="text-align: center; padding: 20px; margin-top: 20px; background: var(--bg-color); border-radius: 8px;">
+                            <p style="font-size: 18px; font-weight: bold; color: var(--secondary-color);">🎉 Hoàn thành Mini Story!</p>
+                            <p style="margin-top: 10px;">Hãy nghe lại nhiều lần để rèn phản xạ!</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -472,7 +807,9 @@
         ];
 
         let listenCount = 0;
+        let miniListenCount = 0;
         let textVisible = true;
+        let miniTextVisible = true;
 
         // Initialize steps
         function initSteps() {
@@ -494,6 +831,7 @@
 
         // Audio controls
         const audio = document.getElementById('mainAudio');
+        const miniAudio = document.getElementById('miniAudio');
         
         audio.addEventListener('play', function() {
             listenCount++;
@@ -501,8 +839,18 @@
             localStorage.setItem('listenCount', listenCount);
         });
 
+        miniAudio.addEventListener('play', function() {
+            miniListenCount++;
+            document.getElementById('miniListenCount').textContent = miniListenCount;
+            localStorage.setItem('miniListenCount', miniListenCount);
+        });
+
         function changeSpeed(speed) {
             audio.playbackRate = speed;
+        }
+
+        function changeMiniSpeed(speed) {
+            miniAudio.playbackRate = speed;
         }
 
         // Toggle text visibility
@@ -513,6 +861,16 @@
                 storyText.classList.remove('hidden');
             } else {
                 storyText.classList.add('hidden');
+            }
+        }
+
+        function toggleMiniText() {
+            const miniStoryText = document.getElementById('miniStoryText');
+            miniTextVisible = !miniTextVisible;
+            if (miniTextVisible) {
+                miniStoryText.classList.remove('hidden');
+            } else {
+                miniStoryText.classList.add('hidden');
             }
         }
 
@@ -551,6 +909,12 @@
                 document.getElementById('listenCount').textContent = listenCount;
             }
 
+            const savedMiniListenCount = localStorage.getItem('miniListenCount');
+            if (savedMiniListenCount) {
+                miniListenCount = parseInt(savedMiniListenCount);
+                document.getElementById('miniListenCount').textContent = miniListenCount;
+            }
+
             steps.forEach((_, index) => {
                 const saved = localStorage.getItem(`step${index}`);
                 if (saved === 'true') {
@@ -562,6 +926,26 @@
             const savedNotes = localStorage.getItem('notes');
             if (savedNotes) {
                 document.getElementById('notesArea').value = savedNotes;
+            }
+        }
+
+        // Tab switching
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.getElementById('mainTab').classList.remove('active');
+            document.getElementById('miniTab').classList.remove('active');
+            
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected tab
+            if (tabName === 'main') {
+                document.getElementById('mainTab').classList.add('active');
+                buttons[0].classList.add('active');
+            } else if (tabName === 'mini') {
+                document.getElementById('miniTab').classList.add('active');
+                buttons[1].classList.add('active');
             }
         }
 
