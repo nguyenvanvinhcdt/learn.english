@@ -83,6 +83,8 @@
             font-size: 14px;
             transition: all 0.3s ease;
             font-weight: 500;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         button:hover {
@@ -111,18 +113,38 @@
             align-items: center;
         }
 
+        audio {
+            width: 100%;
+            max-width: 600px;
+        }
+
         .audio-controls {
             display: flex;
             gap: 10px;
             align-items: center;
             flex-wrap: wrap;
             justify-content: center;
+            width: 100%;
         }
 
         .speed-control {
             display: flex;
             gap: 5px;
             align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .speed-control label {
+            width: 100%;
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .speed-control button {
+            min-width: 60px;
+            padding: 10px 15px;
         }
 
         .listen-counter {
@@ -334,6 +356,14 @@
         }
 
         @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            header {
+                padding: 20px 15px;
+            }
+
             header h1 {
                 font-size: 1.8em;
             }
@@ -344,38 +374,182 @@
 
             .story-text {
                 font-size: 16px;
+                padding: 15px;
+            }
+
+            .card {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+
+            .controls {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            button {
+                width: 100%;
+                padding: 14px 20px;
+                font-size: 15px;
+            }
+
+            .audio-controls {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .speed-control {
+                width: 100%;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .speed-control button {
+                flex: 1;
+                min-width: 70px;
+            }
+
+            .listen-counter {
+                width: 100%;
+                text-align: center;
+            }
+
+            .tabs {
+                gap: 0;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                border-radius: 8px 8px 0 0;
+            }
+
+            .tab-button {
+                padding: 16px 20px;
+                font-size: 15px;
+                white-space: nowrap;
+                flex-shrink: 0;
+                min-width: 50%;
+            }
+
+            .steps-checklist {
+                grid-template-columns: 1fr;
+            }
+
+            .step {
+                padding: 12px;
+            }
+
+            .step-description {
+                font-size: 13px;
+                margin-left: 30px;
+            }
+
+            .header-controls {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .ms-rule {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .ms-number {
+                font-size: 20px;
+            }
+
+            .ms-section {
+                padding: 15px;
+            }
+
+            .ms-statement,
+            .ms-question,
+            .ms-answer {
+                font-size: 14px;
+            }
+
+            .vocab-tooltip {
+                position: fixed;
+                left: 50% !important;
+                bottom: 50% !important;
+                transform: translate(-50%, 50%) !important;
+                white-space: normal;
+                max-width: 80vw;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+            
+            header h2 {
+                font-size: 1em;
+            }
+
+            .tab-button {
+                padding: 10px 15px;
+                font-size: 13px;
+            }
+
+            .story-text {
+                font-size: 15px;
+            }
+
+            .ms-statement,
+            .ms-question,
+            .ms-answer {
+                font-size: 13px;
             }
         }
 
         /* Tabs */
         .tabs {
             display: flex;
-            gap: 10px;
-            border-bottom: 2px solid var(--border-color);
-            margin-bottom: 20px;
+            gap: 0;
+            border-bottom: 3px solid var(--border-color);
+            margin-bottom: 25px;
+            background-color: var(--bg-color);
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
         }
 
         .tab-button {
-            background: none;
+            flex: 1;
+            background: var(--bg-color);
             border: none;
-            padding: 15px 30px;
-            font-size: 16px;
+            padding: 18px 25px;
+            font-size: 17px;
             font-weight: 600;
             color: var(--text-color);
             cursor: pointer;
-            border-bottom: 3px solid transparent;
+            border-bottom: 4px solid transparent;
             transition: all 0.3s ease;
+            position: relative;
+            opacity: 0.6;
         }
 
         .tab-button:hover {
-            background-color: var(--bg-color);
-            transform: none;
-            box-shadow: none;
+            background-color: var(--card-bg);
+            opacity: 0.9;
         }
 
         .tab-button.active {
             color: var(--secondary-color);
             border-bottom-color: var(--secondary-color);
+            background-color: var(--card-bg);
+            opacity: 1;
+            font-weight: 700;
+        }
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: var(--secondary-color);
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.4);
         }
 
         .tab-content {
@@ -508,7 +682,7 @@
         <div class="card">
             <div class="tabs">
                 <button class="tab-button active" onclick="switchTab('main')">📖 Main Story</button>
-                <button class="tab-button" onclick="switchTab('mini')">🎯 Mini Story (MS)</button>
+                <button class="tab-button" onclick="switchTab('mini')">🎯 Mini Story</button>
             </div>
 
             <!-- Main Story Tab -->
