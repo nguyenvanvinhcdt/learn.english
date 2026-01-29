@@ -1007,16 +1007,55 @@
         const audio = document.getElementById('mainAudio');
         const miniAudio = document.getElementById('miniAudio');
         
+        let mainAudioPlaying = false;
+        let miniAudioPlaying = false;
+        
         audio.addEventListener('play', function() {
-            listenCount++;
-            document.getElementById('listenCount').textContent = listenCount;
-            localStorage.setItem('listenCount', listenCount);
+            if (!mainAudioPlaying) {
+                listenCount++;
+                document.getElementById('listenCount').textContent = listenCount;
+                localStorage.setItem('listenCount', listenCount);
+                mainAudioPlaying = true;
+            }
+        });
+
+        audio.addEventListener('ended', function() {
+            mainAudioPlaying = false;
+        });
+
+        audio.addEventListener('pause', function() {
+            // Don't reset on pause, only on ended
+        });
+
+        audio.addEventListener('seeked', function() {
+            // If seeking back to near start (within 3 seconds), reset the flag
+            if (audio.currentTime < 3) {
+                mainAudioPlaying = false;
+            }
         });
 
         miniAudio.addEventListener('play', function() {
-            miniListenCount++;
-            document.getElementById('miniListenCount').textContent = miniListenCount;
-            localStorage.setItem('miniListenCount', miniListenCount);
+            if (!miniAudioPlaying) {
+                miniListenCount++;
+                document.getElementById('miniListenCount').textContent = miniListenCount;
+                localStorage.setItem('miniListenCount', miniListenCount);
+                miniAudioPlaying = true;
+            }
+        });
+
+        miniAudio.addEventListener('ended', function() {
+            miniAudioPlaying = false;
+        });
+
+        miniAudio.addEventListener('pause', function() {
+            // Don't reset on pause, only on ended
+        });
+
+        miniAudio.addEventListener('seeked', function() {
+            // If seeking back to near start (within 3 seconds), reset the flag
+            if (miniAudio.currentTime < 3) {
+                miniAudioPlaying = false;
+            }
         });
 
         function changeSpeed(speed) {
