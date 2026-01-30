@@ -106,54 +106,240 @@
             border: 1px solid var(--border-color);
         }
 
-        .audio-player {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            align-items: center;
+        /* Compact Audio Player */
+        .audio-player-compact {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
 
-        audio {
-            width: 100%;
-            max-width: 600px;
+        .player-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
         }
 
-        .audio-controls {
+        .player-header h4 {
+            color: white;
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .listen-counter-compact {
+            background: rgba(255, 255, 255, 0.25);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+        }
+
+        .listen-counter-compact span {
+            color: #ffeb3b;
+            font-size: 16px;
+        }
+
+        .player-main {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .player-controls-row {
             display: flex;
-            gap: 10px;
-            align-items: center;
-            flex-wrap: wrap;
             justify-content: center;
-            width: 100%;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
         }
 
-        .speed-control {
+        .player-btn-small {
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #667eea;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .player-btn-small:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .player-btn-play {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 50%;
+            width: 55px;
+            height: 55px;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .player-btn-play:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .player-btn-play span {
+            color: white;
+        }
+
+        .player-progress-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .time-display {
+            font-size: 12px;
+            font-weight: 600;
+            color: #667eea;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .player-options-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .speed-compact {
             display: flex;
             gap: 5px;
+        }
+
+        .speed-compact button {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid #667eea;
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #667eea;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .speed-compact button:hover {
+            background: rgba(102, 126, 234, 0.2);
+        }
+
+        .speed-compact button.active-speed {
+            background: #667eea;
+            color: white;
+        }
+
+        .loop-compact {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid #667eea;
+            border-radius: 8px;
+            padding: 6px 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
             align-items: center;
-            flex-wrap: wrap;
             justify-content: center;
         }
 
-        .speed-control label {
-            width: 100%;
-            text-align: center;
-            font-weight: 600;
-            margin-bottom: 5px;
+        .loop-compact input {
+            display: none;
         }
 
-        .speed-control button {
-            min-width: 60px;
-            padding: 10px 15px;
+        .loop-compact span {
+            font-size: 18px;
+        }
+
+        .loop-compact:hover {
+            background: rgba(102, 126, 234, 0.2);
+        }
+
+        .loop-compact.active {
+            background: #27ae60;
+            border-color: #27ae60;
+        }
+
+        .audio-progress-container {
+            flex: 1;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            position: relative;
+            cursor: pointer;
+            overflow: visible;
+        }
+
+        .audio-progress-container:hover {
+            height: 8px;
+        }
+
+        .audio-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .audio-progress-dot {
+            width: 14px;
+            height: 14px;
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 0%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .audio-progress-container:hover .audio-progress-dot {
+            opacity: 1;
+        }
+
+        .control-group label {
+            color: white;
+            font-weight: 600;
+            display: block;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 14px;
         }
 
         .listen-counter {
-            background-color: var(--accent-color);
-            color: white;
-            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #667eea;
+            padding: 12px 25px;
             border-radius: 25px;
             font-weight: bold;
             font-size: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .listen-counter span {
+            color: #e74c3c;
+            font-size: 20px;
+            margin-left: 5px;
         }
 
         .story-text {
@@ -396,6 +582,11 @@
             .audio-controls {
                 flex-direction: column;
                 width: 100%;
+                gap: 12px;
+            }
+
+            .control-group {
+                width: 100%;
             }
 
             .speed-control {
@@ -407,6 +598,11 @@
             .speed-control button {
                 flex: 1;
                 min-width: 70px;
+            }
+
+            .loop-toggle {
+                width: 100%;
+                justify-content: center;
             }
 
             .listen-counter {
@@ -474,6 +670,56 @@
                 white-space: normal;
                 max-width: 80vw;
                 text-align: center;
+            }
+
+            .audio-player-compact {
+                padding: 15px;
+            }
+
+            .player-header {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .player-header h4 {
+                font-size: 15px;
+            }
+
+            .player-main {
+                padding: 12px;
+            }
+
+            .player-controls-row {
+                gap: 10px;
+            }
+
+            .player-btn-play {
+                width: 50px;
+                height: 50px;
+            }
+
+            .player-btn-play span {
+                font-size: 22px;
+            }
+
+            .player-btn-small {
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+
+            .player-options-row {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .speed-compact {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .loop-compact {
+                width: 100%;
             }
         }
 
@@ -641,25 +887,50 @@
 
         <!-- Audio Player -->
         <div class="card">
-            <h3>🎧 Audio Player</h3>
-            <div class="audio-player">
-                <audio id="mainAudio" controls style="width: 100%; max-width: 600px;">
-                    <source src="https://atm225799-s3user.vcos.cloudstorage.com.vn/eedata/dvd1%2FLever%201%2FBai%2001%20Day%20of%20the%20dead%2FDay%20of%20the%20Dead%20Audio.mp3" type="audio/mpeg">
-                    Trình duyệt của bạn không hỗ trợ audio.
-                </audio>
-                
-                <div class="audio-controls">
-                    <div class="speed-control">
-                        <label>Tốc độ:</label>
-                        <button onclick="changeSpeed(0.75)">0.75x</button>
-                        <button onclick="changeSpeed(1)">1x</button>
-                        <button onclick="changeSpeed(1.25)">1.25x</button>
-                        <button onclick="changeSpeed(1.5)">1.5x</button>
+            <div class="audio-player-compact">
+                <div class="player-header">
+                    <h4>🎧 Main Story Audio</h4>
+                    <div class="listen-counter-compact">
+                        🎵 <span id="listenCount">0</span>
                     </div>
                 </div>
+                
+                <!-- Hidden native audio -->
+                <audio id="mainAudio" style="display: none;">
+                    <source src="https://atm225799-s3user.vcos.cloudstorage.com.vn/eedata/dvd1%2FLever%201%2FBai%2001%20Day%20of%20the%20dead%2FDay%20of%20the%20Dead%20Audio.mp3" type="audio/mpeg">
+                </audio>
 
-                <div class="listen-counter">
-                    🎵 Đã nghe: <span id="listenCount">0</span> lần
+                <!-- Compact Player -->
+                <div class="player-main">
+                    <div class="player-controls-row">
+                        <button class="player-btn-small" onclick="skipTime('main', -10)">⏪10s</button>
+                        <button class="player-btn-play" id="mainPlayBtn" onclick="togglePlay('main')">
+                            <span id="mainPlayIcon">▶️</span>
+                        </button>
+                        <button class="player-btn-small" onclick="skipTime('main', 10)">⏩10s</button>
+                    </div>
+
+                    <div class="player-progress-section">
+                        <span class="time-display" id="mainCurrentTime">0:00</span>
+                        <div class="audio-progress-container" id="mainProgressContainer">
+                            <div class="audio-progress-bar" id="mainProgressBar"></div>
+                            <div class="audio-progress-dot" id="mainProgressDot"></div>
+                        </div>
+                        <span class="time-display" id="mainDuration">0:00</span>
+                    </div>
+
+                    <div class="player-options-row">
+                        <div class="speed-compact">
+                            <button onclick="changeSpeed(0.75, 'main')" data-speed="0.75">0.75x</button>
+                            <button onclick="changeSpeed(1, 'main')" data-speed="1" class="active-speed">1x</button>
+                            <button onclick="changeSpeed(1.25, 'main')" data-speed="1.25">1.25x</button>
+                            <button onclick="changeSpeed(1.5, 'main')" data-speed="1.5">1.5x</button>
+                        </div>
+                        <label class="loop-compact" id="mainLoopToggle">
+                            <input type="checkbox" id="mainLoopCheckbox" onchange="toggleLoop('main')">
+                            <span>🔁</span>
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -734,26 +1005,51 @@
                     </div>
                 </div>
 
-                <div style="margin-top: 30px;">
-                    <h3>🎧 Audio Mini Story</h3>
-                    <div class="audio-player">
-                        <audio id="miniAudio" controls style="width: 100%; max-width: 600px;">
-                            <source src="https://atm225799-s3user.vcos.cloudstorage.com.vn/eedata/dvd1%2FLever%201%2FBai%2001%20Day%20of%20the%20dead%2FDay%20of%20the%20Dead%20MS.mp3" type="audio/mpeg">
-                            Trình duyệt của bạn không hỗ trợ audio.
-                        </audio>
-                        
-                        <div class="audio-controls">
-                            <div class="speed-control">
-                                <label>Tốc độ:</label>
-                                <button onclick="changeMiniSpeed(0.75)">0.75x</button>
-                                <button onclick="changeMiniSpeed(1)">1x</button>
-                                <button onclick="changeMiniSpeed(1.25)">1.25x</button>
-                                <button onclick="changeMiniSpeed(1.5)">1.5x</button>
+                <div style="margin-top: 20px;">
+                    <div class="audio-player-compact">
+                        <div class="player-header">
+                            <h4>🎯 Mini Story Audio</h4>
+                            <div class="listen-counter-compact">
+                                🎵 <span id="miniListenCount">0</span>
                             </div>
                         </div>
+                        
+                        <!-- Hidden native audio -->
+                        <audio id="miniAudio" style="display: none;">
+                            <source src="https://atm225799-s3user.vcos.cloudstorage.com.vn/eedata/dvd1%2FLever%201%2FBai%2001%20Day%20of%20the%20dead%2FDay%20of%20the%20Dead%20MS.mp3" type="audio/mpeg">
+                        </audio>
 
-                        <div class="listen-counter">
-                            🎵 Đã nghe MS: <span id="miniListenCount">0</span> lần
+                        <!-- Compact Player -->
+                        <div class="player-main">
+                            <div class="player-controls-row">
+                                <button class="player-btn-small" onclick="skipTime('mini', -10)">⏪10s</button>
+                                <button class="player-btn-play" id="miniPlayBtn" onclick="togglePlay('mini')">
+                                    <span id="miniPlayIcon">▶️</span>
+                                </button>
+                                <button class="player-btn-small" onclick="skipTime('mini', 10)">⏩10s</button>
+                            </div>
+
+                            <div class="player-progress-section">
+                                <span class="time-display" id="miniCurrentTime">0:00</span>
+                                <div class="audio-progress-container" id="miniProgressContainer">
+                                    <div class="audio-progress-bar" id="miniProgressBar"></div>
+                                    <div class="audio-progress-dot" id="miniProgressDot"></div>
+                                </div>
+                                <span class="time-display" id="miniDuration">0:00</span>
+                            </div>
+
+                            <div class="player-options-row">
+                                <div class="speed-compact">
+                                    <button onclick="changeSpeed(0.75, 'mini')" data-speed="0.75">0.75x</button>
+                                    <button onclick="changeSpeed(1, 'mini')" data-speed="1" class="active-speed">1x</button>
+                                    <button onclick="changeSpeed(1.25, 'mini')" data-speed="1.25">1.25x</button>
+                                    <button onclick="changeSpeed(1.5, 'mini')" data-speed="1.5">1.5x</button>
+                                </div>
+                                <label class="loop-compact" id="miniLoopToggle">
+                                    <input type="checkbox" id="miniLoopCheckbox" onchange="toggleLoop('mini')">
+                                    <span>🔁</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1009,61 +1305,195 @@
         
         let mainAudioPlaying = false;
         let miniAudioPlaying = false;
-        
-        audio.addEventListener('play', function() {
-            if (!mainAudioPlaying) {
-                listenCount++;
-                document.getElementById('listenCount').textContent = listenCount;
-                localStorage.setItem('listenCount', listenCount);
-                mainAudioPlaying = true;
+        let isDraggingMain = false;
+        let isDraggingMini = false;
+
+        // Format time helper
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Toggle play/pause
+        function togglePlay(type) {
+            const audioElement = type === 'main' ? audio : miniAudio;
+            const playIcon = document.getElementById(type + 'PlayIcon');
+            const playing = type === 'main' ? mainAudioPlaying : miniAudioPlaying;
+            
+            if (audioElement.paused) {
+                audioElement.play();
+                playIcon.textContent = '⏸️';
+                
+                // Count listen on first play
+                if (type === 'main' && !mainAudioPlaying) {
+                    listenCount++;
+                    document.getElementById('listenCount').textContent = listenCount;
+                    localStorage.setItem('listenCount', listenCount);
+                    mainAudioPlaying = true;
+                } else if (type === 'mini' && !miniAudioPlaying) {
+                    miniListenCount++;
+                    document.getElementById('miniListenCount').textContent = miniListenCount;
+                    localStorage.setItem('miniListenCount', miniListenCount);
+                    miniAudioPlaying = true;
+                }
+            } else {
+                audioElement.pause();
+                playIcon.textContent = '▶️';
             }
+        }
+
+        // Skip time
+        function skipTime(type, seconds) {
+            const audioElement = type === 'main' ? audio : miniAudio;
+            audioElement.currentTime = Math.max(0, Math.min(audioElement.duration, audioElement.currentTime + seconds));
+        }
+
+        // Update progress bar
+        function updateProgress(type) {
+            const audioElement = type === 'main' ? audio : miniAudio;
+            const progressBar = document.getElementById(type + 'ProgressBar');
+            const progressDot = document.getElementById(type + 'ProgressDot');
+            const currentTimeEl = document.getElementById(type + 'CurrentTime');
+            
+            if (audioElement.duration) {
+                const progress = (audioElement.currentTime / audioElement.duration) * 100;
+                progressBar.style.width = progress + '%';
+                progressDot.style.left = progress + '%';
+                currentTimeEl.textContent = formatTime(audioElement.currentTime);
+            }
+        }
+
+        // Setup progress bar click/drag
+        function setupProgressBar(type) {
+            const audioElement = type === 'main' ? audio : miniAudio;
+            const container = document.getElementById(type + 'ProgressContainer');
+            const isDragging = type === 'main' ? 'isDraggingMain' : 'isDraggingMini';
+            
+            function seek(e) {
+                const rect = container.getBoundingClientRect();
+                const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+                audioElement.currentTime = percent * audioElement.duration;
+            }
+            
+            container.addEventListener('click', seek);
+            
+            container.addEventListener('mousedown', (e) => {
+                window[isDragging] = true;
+                seek(e);
+            });
+            
+            document.addEventListener('mousemove', (e) => {
+                if (window[isDragging]) {
+                    seek(e);
+                }
+            });
+            
+            document.addEventListener('mouseup', () => {
+                window[isDragging] = false;
+            });
+
+            // Touch support
+            container.addEventListener('touchstart', (e) => {
+                window[isDragging] = true;
+                const touch = e.touches[0];
+                const rect = container.getBoundingClientRect();
+                const percent = Math.max(0, Math.min(1, (touch.clientX - rect.left) / rect.width));
+                audioElement.currentTime = percent * audioElement.duration;
+            });
+
+            document.addEventListener('touchmove', (e) => {
+                if (window[isDragging]) {
+                    const touch = e.touches[0];
+                    const rect = container.getBoundingClientRect();
+                    const percent = Math.max(0, Math.min(1, (touch.clientX - rect.left) / rect.width));
+                    audioElement.currentTime = percent * audioElement.duration;
+                }
+            });
+
+            document.addEventListener('touchend', () => {
+                window[isDragging] = false;
+            });
+        }
+
+        // Audio event listeners
+        audio.addEventListener('loadedmetadata', function() {
+            document.getElementById('mainDuration').textContent = formatTime(audio.duration);
+            setupProgressBar('main');
+        });
+
+        audio.addEventListener('timeupdate', function() {
+            updateProgress('main');
         });
 
         audio.addEventListener('ended', function() {
             mainAudioPlaying = false;
-        });
-
-        audio.addEventListener('pause', function() {
-            // Don't reset on pause, only on ended
+            document.getElementById('mainPlayIcon').textContent = '▶️';
         });
 
         audio.addEventListener('seeked', function() {
-            // If seeking back to near start (within 3 seconds), reset the flag
             if (audio.currentTime < 3) {
                 mainAudioPlaying = false;
             }
         });
 
-        miniAudio.addEventListener('play', function() {
-            if (!miniAudioPlaying) {
-                miniListenCount++;
-                document.getElementById('miniListenCount').textContent = miniListenCount;
-                localStorage.setItem('miniListenCount', miniListenCount);
-                miniAudioPlaying = true;
-            }
+        miniAudio.addEventListener('loadedmetadata', function() {
+            document.getElementById('miniDuration').textContent = formatTime(miniAudio.duration);
+            setupProgressBar('mini');
+        });
+
+        miniAudio.addEventListener('timeupdate', function() {
+            updateProgress('mini');
         });
 
         miniAudio.addEventListener('ended', function() {
             miniAudioPlaying = false;
-        });
-
-        miniAudio.addEventListener('pause', function() {
-            // Don't reset on pause, only on ended
+            document.getElementById('miniPlayIcon').textContent = '▶️';
         });
 
         miniAudio.addEventListener('seeked', function() {
-            // If seeking back to near start (within 3 seconds), reset the flag
             if (miniAudio.currentTime < 3) {
                 miniAudioPlaying = false;
             }
         });
 
-        function changeSpeed(speed) {
-            audio.playbackRate = speed;
+        function changeSpeed(speed, type) {
+            const audioElement = type === 'main' ? audio : miniAudio;
+            audioElement.playbackRate = speed;
+            
+            // Highlight active speed button
+            const player = document.getElementById(type + 'Audio').closest('.audio-player');
+            player.querySelectorAll('.speed-control button').forEach(btn => {
+                btn.classList.remove('active-speed');
+                if (btn.getAttribute('data-speed') == speed) {
+                    btn.classList.add('active-speed');
+                }
+            });
         }
 
-        function changeMiniSpeed(speed) {
-            miniAudio.playbackRate = speed;
+        // Toggle loop functionality
+        function toggleLoop(type) {
+            if (type === 'main') {
+                const checkbox = document.getElementById('mainLoopCheckbox');
+                const toggle = document.getElementById('mainLoopToggle');
+                audio.loop = checkbox.checked;
+                if (checkbox.checked) {
+                    toggle.classList.add('active');
+                } else {
+                    toggle.classList.remove('active');
+                }
+                localStorage.setItem('mainLoop', checkbox.checked);
+            } else if (type === 'mini') {
+                const checkbox = document.getElementById('miniLoopCheckbox');
+                const toggle = document.getElementById('miniLoopToggle');
+                miniAudio.loop = checkbox.checked;
+                if (checkbox.checked) {
+                    toggle.classList.add('active');
+                } else {
+                    toggle.classList.remove('active');
+                }
+                localStorage.setItem('miniLoop', checkbox.checked);
+            }
         }
 
         // Toggle text visibility
@@ -1126,6 +1556,21 @@
             if (savedMiniListenCount) {
                 miniListenCount = parseInt(savedMiniListenCount);
                 document.getElementById('miniListenCount').textContent = miniListenCount;
+            }
+
+            // Restore loop settings
+            const mainLoop = localStorage.getItem('mainLoop') === 'true';
+            if (mainLoop) {
+                document.getElementById('mainLoopCheckbox').checked = true;
+                document.getElementById('mainLoopToggle').classList.add('active');
+                audio.loop = true;
+            }
+
+            const miniLoop = localStorage.getItem('miniLoop') === 'true';
+            if (miniLoop) {
+                document.getElementById('miniLoopCheckbox').checked = true;
+                document.getElementById('miniLoopToggle').classList.add('active');
+                miniAudio.loop = true;
             }
 
             steps.forEach((_, index) => {
