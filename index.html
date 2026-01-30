@@ -896,8 +896,9 @@
                 </div>
                 
                 <!-- Hidden native audio -->
-                <audio id="mainAudio" style="display: none;">
+                <audio id="mainAudio" preload="metadata" style="display: none;">
                     <source src="https://atm225799-s3user.vcos.cloudstorage.com.vn/eedata/dvd1%2FLever%201%2FBai%2001%20Day%20of%20the%20dead%2FDay%20of%20the%20Dead%20Audio.mp3" type="audio/mpeg">
+                    Trình duyệt của bạn không hỗ trợ audio.
                 </audio>
 
                 <!-- Compact Player -->
@@ -1015,8 +1016,9 @@
                         </div>
                         
                         <!-- Hidden native audio -->
-                        <audio id="miniAudio" style="display: none;">
+                        <audio id="miniAudio" preload="metadata" style="display: none;">
                             <source src="https://atm225799-s3user.vcos.cloudstorage.com.vn/eedata/dvd1%2FLever%201%2FBai%2001%20Day%20of%20the%20dead%2FDay%20of%20the%20Dead%20MS.mp3" type="audio/mpeg">
+                            Trình duyệt của bạn không hỗ trợ audio.
                         </audio>
 
                         <!-- Compact Player -->
@@ -1319,23 +1321,32 @@
         function togglePlay(type) {
             const audioElement = type === 'main' ? audio : miniAudio;
             const playIcon = document.getElementById(type + 'PlayIcon');
-            const playing = type === 'main' ? mainAudioPlaying : miniAudioPlaying;
             
             if (audioElement.paused) {
-                audioElement.play();
-                playIcon.textContent = '⏸️';
+                // Try to play
+                const playPromise = audioElement.play();
                 
-                // Count listen on first play
-                if (type === 'main' && !mainAudioPlaying) {
-                    listenCount++;
-                    document.getElementById('listenCount').textContent = listenCount;
-                    localStorage.setItem('listenCount', listenCount);
-                    mainAudioPlaying = true;
-                } else if (type === 'mini' && !miniAudioPlaying) {
-                    miniListenCount++;
-                    document.getElementById('miniListenCount').textContent = miniListenCount;
-                    localStorage.setItem('miniListenCount', miniListenCount);
-                    miniAudioPlaying = true;
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        // Playback started successfully
+                        playIcon.textContent = '⏸️';
+                        
+                        // Count listen on first play
+                        if (type === 'main' && !mainAudioPlaying) {
+                            listenCount++;
+                            document.getElementById('listenCount').textContent = listenCount;
+                            localStorage.setItem('listenCount', listenCount);
+                            mainAudioPlaying = true;
+                        } else if (type === 'mini' && !miniAudioPlaying) {
+                            miniListenCount++;
+                            document.getElementById('miniListenCount').textContent = miniListenCount;
+                            localStorage.setItem('miniListenCount', miniListenCount);
+                            miniAudioPlaying = true;
+                        }
+                    }).catch((error) => {
+                        console.error('Playback error:', error);
+                        alert('Không thể phát audio. Vui lòng thử lại!');
+                    });
                 }
             } else {
                 audioElement.pause();
@@ -1422,6 +1433,11 @@
             setupProgressBar('main');
         });
 
+        audio.addEventListener('error', function(e) {
+            console.error('Main audio error:', e);
+            alert('Lỗi tải audio chính. Vui lòng kiểm tra kết nối internet!');
+        });
+
         audio.addEventListener('timeupdate', function() {
             updateProgress('main');
         });
@@ -1440,6 +1456,11 @@
         miniAudio.addEventListener('loadedmetadata', function() {
             document.getElementById('miniDuration').textContent = formatTime(miniAudio.duration);
             setupProgressBar('mini');
+        });
+
+        miniAudio.addEventListener('error', function(e) {
+            console.error('Mini audio error:', e);
+            alert('Lỗi tải audio mini story. Vui lòng kiểm tra kết nối internet!');
         });
 
         miniAudio.addEventListener('timeupdate', function() {
